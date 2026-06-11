@@ -1,0 +1,57 @@
+# Indian Market Trading Agent Configuration
+
+account:
+  capital: 100000          # Total trading capital (INR)
+  risk_per_trade_pct: 1.0  # Risk 1% per trade
+  max_daily_loss_pct: 3.0  # Stop trading after 3% daily loss
+  max_open_trades: 3
+  max_trades_per_day: 5
+
+risk_reward:
+  min_rr_ratio: 2.0        # Minimum 1:2 risk-reward
+  target1_rr: 1.5            # First target at 1.5R
+  target2_rr: 2.5            # Second target at 2.5R
+  target3_rr: 4.0            # Third target at 4R
+
+fvg:
+  min_gap_pct: 0.02          # Minimum gap size as % of price (Indian intraday)
+  max_gap_age_bars: 50       # Ignore FVGs older than 50 candles
+  lookback_bars: 200         # Candles to scan for FVGs
+  timeframe: "15m"           # Default timeframe: 5m, 15m, 1h, 1d
+
+symbols:
+  nifty:
+    name: "NIFTY 50"
+    yahoo_symbol: "^NSEI"
+    segment: ["cash", "options"]
+    lot_size: 65
+    tick_size: 0.05
+    dhan_security_id: "13"
+    dhan_exchange: "IDX_I"
+  sensex:
+    name: "SENSEX"
+    yahoo_symbol: "^BSESN"
+    segment: ["cash", "options"]
+    lot_size: 20
+    tick_size: 0.05
+    dhan_security_id: "51"
+    dhan_exchange: "IDX_I"
+  banknifty:
+    name: "BANK NIFTY"
+    yahoo_symbol: "^NSEBANK"
+    segment: ["cash", "options"]
+    lot_size: 30
+    tick_size: 0.05
+    dhan_security_id: "25"
+    dhan_exchange: "IDX_I"
+
+dhan:
+  enabled: true
+  data_source: "auto"       # auto | dhan | yahoo
+  product_type: "INTRADAY"
+  auto_execute: false
+  use_super_order: true
+
+api:
+  host: "0.0.0.0"
+  port: 8000

@@ -107,20 +107,32 @@ if __name__ == "__main__":
     main()
 
 
+# ==========================================================
+# Langfuse & Env Configuration (Main Function se PEHLE)
+# ==========================================================
 from langfuse import Langfuse
 from dotenv import load_dotenv
+
 load_dotenv()
+# Naye SDK ke mutabik 'Langfuse' class ka 'L' capital hota hai
+langfuse_client = Langfuse() 
 
-langfuse = Langfuse()
-
-# Jab aap trace create karein, toh "project_name" mein iski identity de dein
-trace = langfuse.trace(
-    name="market-analysis",
-    metadata={
-        "project_name": "AIagent",  # <--- Is project ka unique naam
-        "environment": "production"
+# ==========================================================
+# Aapka Application Entry Point
+# ==========================================================
+if __name__ == "__main__":
+    print("Starting Langfuse Tracing for AIagent...")
+    
+    # 1. Pehle trace create karein (Sahi syntax ke sath)
+    trace = langfuse_client.trace(
+        name="market-analysis",
+        metadata={
+            "project_name": "AIagent",   # <-- Comma fix ho gaya
+            "environment": "production"
     }
 )
 
 # Aapka LLM call aur baki logic yahan aayega...
 langfuse.flush()
+langfuse_client.flush()
+    print("Scan complete. Traces pushed to Langfuse dashboard.")

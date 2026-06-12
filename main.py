@@ -105,3 +105,22 @@ def main():
 
 if __name__ == "__main__":
     main()
+
+
+from langfuse import Langfuse
+from dotenv import load_dotenv
+load_dotenv()
+
+langfuse = Langfuse()
+
+# Jab aap trace create karein, toh "project_name" mein iski identity de dein
+trace = langfuse.trace(
+    name="market-analysis",
+    metadata={
+        "project_name": "AIagent",  # <--- Is project ka unique naam
+        "environment": "production"
+    }
+)
+
+# Aapka LLM call aur baki logic yahan aayega...
+langfuse.flush()
